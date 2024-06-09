@@ -1,15 +1,19 @@
+# templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "example-app.fullname" . }}
   labels:
-    {{- include "example-app.labels" . | nindent 4 }}
+    app: {{ include "example-app.name" . }}
+    chart: {{ include "example-app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
-  type: {{ .Values.service.type }}
+  type: LoadBalancer
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
+    - port: 80
+      targetPort: 80
       protocol: TCP
-      name: http
   selector:
-    {{- include "example-app.selectorLabels" . | nindent 4 }}
+    app: {{ include "example-app.name" . }}
+    release: {{ .Release.Name }}
