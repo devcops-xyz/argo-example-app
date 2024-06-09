@@ -1,7 +1,7 @@
 # Default values for example-app.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
+namespace: example
 replicaCount: 1
 
 image:
